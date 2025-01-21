@@ -48,7 +48,7 @@ The platform is structured to cater to writers of all levels, offering personali
 ### **6. Saving and Tracking Writing Progress**
    - **Description:** Let users track their progress on writing goals and challenges.
    - **Tech Stack:**
-     - **Frontend:** React.js, React Progress Bar, React Calendar
+     - **Frontend:** React.js, React Progress Bar, React Calendar 
      - **Backend:** Node.js + Express.js, MongoDB, Mongoose
 
 ---
