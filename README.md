@@ -1,5 +1,6 @@
 # S64_story-prompts
-StoryPrompts is a dynamic web application designed to support writers in overcoming creative blocks, fostering imagination, and improving their writing skills. By providing a range of tools such as random story prompts, character generators, plot builders, StoryPrompts empowers users to explore different genres, themes, and narrative styles while staying motivated and organized.
+StoryPrompts is a dynamic web application designed to support writers in overcoming creative blocks, fostering imagination, and improving their writing skills. 
+By providing a range of tools such as random story prompts, character generators, plot builders, StoryPrompts empowers users to explore different genres, themes, and narrative styles while staying motivated and organized.
 
 The platform is structured to cater to writers of all levels, offering personalized experiences, progress tracking, and social interaction to create a supportive and engaging writing community. Whether you're looking to develop compelling characters, spark new story ideas, or engage in time-bound writing challenges, StoryPrompts provides a fun and functional environment to nurture your creativity.
 
