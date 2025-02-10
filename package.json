@@ -4,7 +4,8 @@
   "description": "StoryPrompts is a dynamic web application designed to support writers in overcoming creative blocks, fostering imagination, and improving their writing skills. By providing a range of tools such as random story prompts, character generators, plot builders, StoryPrompts empowers users to explore different genres, themes, and narrative styles while staying motivated and organized.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",

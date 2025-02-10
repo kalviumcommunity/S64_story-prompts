@@ -1,3 +1,5 @@
+DEPLOY LINK = https://s64-story-prompts.onrender.com
+
 # S64_story-prompts
 StoryPrompts is a dynamic web application designed to support writers in overcoming creative blocks, fostering imagination, and improving their writing skills. 
 By providing a range of tools such as random story prompts, character generators, plot builders, StoryPrompts empowers users to explore different genres, themes, and narrative styles while staying motivated and organized.
@@ -68,6 +70,6 @@ The platform is structured to cater to writers of all levels, offering personali
      - **Frontend:** React.js (Admin Dashboard)
      - **Backend:** Node.js + Express.js, MongoDB (Admin routes)
 
----
 
 Render Deployment link = https://s64-story-prompts.onrender.com
+---
