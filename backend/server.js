@@ -1,12 +1,21 @@
 
+<<<<<<< HEAD:backend/server.js
+// const express = require("express");
+const connectDB = require("./db");
+=======
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+>>>>>>> f775b54708e7fae4bef8764b6af71f84ac646130:server.js
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+<<<<<<< HEAD:backend/server.js
+const PORT = process.env.PORT || 3000;
+=======
 app.use(express.json()); // Middleware to parse JSON requests
+>>>>>>> f775b54708e7fae4bef8764b6af71f84ac646130:server.js
 
 // MongoDB Connection
 mongoose
