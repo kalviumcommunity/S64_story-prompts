@@ -67,6 +67,7 @@ The platform is structured to cater to writers of all levels, offering personali
 ### **8. Admin Panel for Managing Content**
    - **Description:** Provide an admin interface for content moderation and user management.
    - **Tech Stack:**
+  
      - **Frontend:** React.js (Admin Dashboard)
      - **Backend:** Node.js + Express.js, MongoDB (Admin routes)
 

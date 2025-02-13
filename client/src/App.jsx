@@ -6,7 +6,7 @@ const App = () => {
     <div className="container">
       <header>
         <h1>StoryPrompts</h1>
-        <p>Inspiring Writers, One Prompt at a Time</p>
+        <p>Inspiring Writers, One Prompt at a Time.</p>
       </header>
 
       <main>
@@ -22,7 +22,7 @@ const App = () => {
         <section className="features">
           <div className="feature">
             <h3>📚 Story Prompts</h3>
-            <p>Discover unique prompts to ignite your imagination.</p>
+            <p>Discover unique prompts to ignite your Imagination.</p>
           </div>
           <div className="feature">
             <h3>✍️ Writing Challenges</h3>
