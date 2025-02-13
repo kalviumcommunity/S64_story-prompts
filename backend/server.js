@@ -12,11 +12,11 @@ const port = 3000;
 //     console.log('Server is running on port 3000');
 //     });
 
-const express = require("express");
+// const express = require("express");
 const connectDB = require("./db");
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 connectDB();
