@@ -72,4 +72,5 @@ The platform is structured to cater to writers of all levels, offering personali
 
 
 Render Deployment link = https://s64-story-prompts.onrender.com
+netlify Deployment Link = https://story-prompt-asap.netlify.app/
 ---
