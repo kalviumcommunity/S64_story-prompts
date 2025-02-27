@@ -1,55 +1,44 @@
 const express = require("express");
+const mongoose = require("mongoose");
+
 const router = express.Router();
-const Item = require("../models/Item");
 
-// POST: Add a new item
-router.post("/items", async (req, res) => {
-  try {
-    const item = new Item(req.body);
-    await item.save();
-    res.status(201).json(item);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Writing Challenge Schema
+const writingChallengeSchema = new mongoose.Schema(
+    {
+        challenge: {
+            type: String,
+            required: true,
+        },
+    },
+    { timestamps: true }
+);
 
-// GET: Retrieve all items
-router.get("/items", async (req, res) => {
-  try {
-    const items = await Item.find();
-    res.status(200).json(items);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Writing Challenge Model
+const WritingChallenge = mongoose.model("WritingChallenge", writingChallengeSchema);
 
-// PUT: Update an item by ID
-router.put("/items/:id", async (req, res) => {
-  try {
-    const item = await Item.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
+// POST: Store a new writing challenge
+router.post("/writing-challenges", async (req, res) => {
+    try {
+        const { challenge } = req.body;
+        if (!challenge) return res.status(400).json({ message: "Challenge text is required" });
+
+        const newChallenge = new WritingChallenge({ challenge });
+        await newChallenge.save();
+        res.status(201).json(newChallenge);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    res.status(200).json(item);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 });
 
-// DELETE: Delete an item by ID
-router.delete("/items/:id", async (req, res) => {
-  try {
-    const item = await Item.findByIdAndDelete(req.params.id);
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
+// GET: Fetch all writing challenges
+router.get("/writing-challenges", async (req, res) => {
+    try {
+        const challenges = await WritingChallenge.find().sort({ createdAt: -1 });
+        res.status(200).json(challenges);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    res.status(204).end();
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 });
 
 module.exports = router;

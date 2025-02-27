@@ -27,12 +27,18 @@ const LandingPage = () => {
 
         <section className="features">
           <div className="feature">
+            <button onClick={() => navigate("/story-prompt")}>
             <h3>📚 Story Prompts</h3>
             <p>Discover unique prompts to ignite your imagination.</p>
+            </button>
+
           </div>
-          <div className="feature">
+          <div className="feature" >
+            <button onClick={() => navigate("/writing-challenge")}>
             <h3>✍️ Writing Challenges</h3>
             <p>Sharpen your skills with time-based writing tasks.</p>
+            </button>
+            
           </div>
           <div className="feature">
             <h3>📖 Character Builder</h3>
