@@ -110,3 +110,4 @@ const styles = {
 };
 
 export default StoryPromptPage;
+  

@@ -1,21 +1,14 @@
-
-<<<<<<< HEAD:backend/server.js
-// const express = require("express");
-const connectDB = require("./db");
-=======
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
->>>>>>> f775b54708e7fae4bef8764b6af71f84ac646130:server.js
+const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-<<<<<<< HEAD:backend/server.js
-const PORT = process.env.PORT || 3000;
-=======
-app.use(express.json()); // Middleware to parse JSON requests
->>>>>>> f775b54708e7fae4bef8764b6af71f84ac646130:server.js
+// Middleware
+app.use(express.json());
+app.use(cors());
 
 // MongoDB Connection
 mongoose
@@ -23,59 +16,35 @@ mongoose
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch((err) => console.log("❌ MongoDB connection error:", err));
 
-// Define Schema and Model
-const itemSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
+// Schema for Writing Challenges
+const challengeSchema = new mongoose.Schema({
+  prompt: { type: String, required: true },
+  contributor: { type: String, default: "Anonymous" },
+  date: { type: Date, default: Date.now },
 });
 
-const Item = mongoose.model("Item", itemSchema);
+const Challenge = mongoose.model("Challenge", challengeSchema);
 
-// Home Route with DB Status
+// Routes
 app.get("/", (req, res) => {
-  const dbStatus = mongoose.connection.readyState === 1 ? "Connected" : "Not Connected";
-  res.json({ message: "Welcome to the ASAP Project!", databaseStatus: dbStatus });
+  res.json({ message: "Welcome to the Writing Challenges API!" });
 });
 
-// CRUD Operations
-
-// CREATE - Add a new item
-app.post("/items", async (req, res) => {
+// Get all writing challenges
+app.get("/challenges", async (req, res) => {
   try {
-    const newItem = await Item.create(req.body);
-    res.status(201).json(newItem);
+    const challenges = await Challenge.find().sort({ date: -1 });
+    res.json(challenges);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// READ - Get all items
-app.get("/items", async (req, res) => {
+// Add a new writing challenge
+app.post("/challenges", async (req, res) => {
   try {
-    const items = await Item.find();
-    res.json(items);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// UPDATE - Modify an item by ID
-app.put("/items/:id", async (req, res) => {
-  try {
-    const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedItem) return res.status(404).json({ message: "Item not found" });
-    res.json(updatedItem);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// DELETE - Remove an item by ID
-app.delete("/items/:id", async (req, res) => {
-  try {
-    const deletedItem = await Item.findByIdAndDelete(req.params.id);
-    if (!deletedItem) return res.status(404).json({ message: "Item not found" });
-    res.json({ message: "Item deleted successfully" });
+    const newChallenge = await Challenge.create(req.body);
+    res.status(201).json(newChallenge);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -84,4 +53,3 @@ app.delete("/items/:id", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-
