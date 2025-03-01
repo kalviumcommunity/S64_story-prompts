@@ -147,7 +147,7 @@ const LandingPage = () => {
           background: #ecf0f1;
           padding: 20px;
           border-radius: 8px;
-          box-shadow: 0px 4px 8px rgba(233, 176, 210, 0.1);
+          // box-shadow: 0px 4px 8px rgba(233, 176, 210, 0.1);
           transition: transform 0.3s ease-in-out;
         }
 
