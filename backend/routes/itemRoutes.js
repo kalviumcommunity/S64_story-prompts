@@ -6,10 +6,9 @@ const router = express.Router();
 // Writing Challenge Schema
 const writingChallengeSchema = new mongoose.Schema(
     {
-        challenge: {
-            type: String,
-            required: true,
-        },
+        userName: { type: String, required: true },
+        genre: { type: String, required: true },
+        story: { type: String, required: true },
     },
     { timestamps: true }
 );
@@ -17,27 +16,32 @@ const writingChallengeSchema = new mongoose.Schema(
 // Writing Challenge Model
 const WritingChallenge = mongoose.model("WritingChallenge", writingChallengeSchema);
 
-// POST: Store a new writing challenge
-router.post("/writing-challenges", async (req, res) => {
+// GET: Fetch all writing challenges
+router.get("/", async (req, res) => {
     try {
-        const { challenge } = req.body;
-        if (!challenge) return res.status(400).json({ message: "Challenge text is required" });
-
-        const newChallenge = new WritingChallenge({ challenge });
-        await newChallenge.save();
-        res.status(201).json(newChallenge);
+        const challenges = await WritingChallenge.find().sort({ createdAt: -1 });
+        res.json(challenges);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Error fetching challenges:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
-// GET: Fetch all writing challenges
-router.get("/writing-challenges", async (req, res) => {
+// POST: Submit a new writing challenge
+router.post("/", async (req, res) => {
     try {
-        const challenges = await WritingChallenge.find().sort({ createdAt: -1 });
-        res.status(200).json(challenges);
+        const { userName, genre, story } = req.body;
+        if (!userName || !genre || !story) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        const newChallenge = new WritingChallenge({ userName, genre, story });
+        await newChallenge.save();
+
+        res.status(201).json({ message: "Story submitted successfully", challenge: newChallenge });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Error submitting story:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 

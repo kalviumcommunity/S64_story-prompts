@@ -12,6 +12,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/story-prompt" element={<StoryPromptCard />} />
         <Route path="/writing-challenge" element={<WritingChallenge />} />
+        
       </Routes>
     </Router>
 

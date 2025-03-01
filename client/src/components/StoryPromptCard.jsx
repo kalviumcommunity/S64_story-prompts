@@ -78,7 +78,7 @@ const styles = {
     background: "white",
     padding: "20px",
     borderRadius: "12px",
-    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0px 4px 12px rgba(198, 219, 232, 0.73)",
     transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
     textAlign: "center",
   },
