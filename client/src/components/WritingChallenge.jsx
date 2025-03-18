@@ -160,10 +160,10 @@ const WritingChallenge = () => {
               </p>
               <p>"{c.story}"</p>
               <button onClick={() => handleEdit(c)} style={styles.editButton}>
-                ✏️ Edit
+                 Edit
               </button>
               <button onClick={() => handleDelete(c._id)} style={styles.deleteButton}>
-                ❌ Delete
+                 Delete
               </button>
             </div>
           ))
