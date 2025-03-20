@@ -14,10 +14,10 @@ const WritingChallenge = () => {
     "Describe a world where dreams come true instantly.",
     "Write a dialogue between a ghost and its best friend.",
     "A letter is delivered 50 years late. Who was it meant for?",
-    "Write about a character who wakes up in an unfamiliar place.",
-    "Describe a world where dreams come true instantly.",
-    "Write a dialogue between a ghost and its best friend.",
-    "A letter is delivered 50 years late. Who was it meant for?",
+    "Describe a world where dreams come true instantly but you have to pay a price.",
+    "Write a dialogue between a ghost and its best friend who died together.",
+    "A letter is delivered 50 years late. Who was it meant for? and what does it say?",
+    "Write about a character who wakes up in an unfamiliar body and has to solve a mystery.",
     "Your character finds a door in their home that wasn’t there before.",
     "Write a story that begins with the sentence: 'The lights flickered, and then…'",
     "An AI gains emotions. How does it react?",
@@ -256,6 +256,27 @@ const styles = {
     borderRadius: "5px",
     fontSize: "1rem",
     cursor: "pointer",
+  },
+  editButton: {
+    background: "#f39c12", // Orange
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "5px",
+    fontSize: "0.9rem",
+    cursor: "pointer",
+    marginRight: "8px",
+    transition: "background 0.3s ease",
+  },
+  deleteButton: {
+    background: "#e74c3c", // Red
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "5px",
+    fontSize: "0.9rem",
+    cursor: "pointer",
+    transition: "background 0.3s ease",
   }
 };
 

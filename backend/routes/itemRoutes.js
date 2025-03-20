@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const WritingChallenge = require("../models/WritingChallenge");
 const router = express.Router();
 
 // Writing Challenge Schema
