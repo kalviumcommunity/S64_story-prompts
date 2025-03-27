@@ -5,15 +5,13 @@ const WritingChallenge = () => {
   const [genre, setGenre] = useState("");
   const [story, setStory] = useState("");
   const [currentChallenge, setCurrentChallenge] = useState("");
-  const [challenges, setChallenges] = useState([]); // Stores submitted stories
-  const [editId, setEditId] = useState(null); // Track editing story
-  const [selectedGenre, setSelectedGenre] = useState(""); // Genre filter
+  const [challenges, setChallenges] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [editId, setEditId] = useState(null);
 
   const challengeList = [
-    "Write about a character who wakes up in an unfamiliar place.",
-    "Describe a world where dreams come true instantly.",
-    "Write a dialogue between a ghost and its best friend.",
-    "A letter is delivered 50 years late. Who was it meant for?",
     "Write about a character who wakes up in an unfamiliar place.",
     "Describe a world where dreams come true instantly.",
     "Write a dialogue between a ghost and its best friend.",
@@ -28,12 +26,13 @@ const WritingChallenge = () => {
     "Time stops for everyone except one person.",
     "A spaceship receives a distress signal from an unknown planet.",
     "Your main character meets their future self, but they don’t like what they see.",
-    "A musician plays a melody that makes everyone who hears it cry.", 
+    "A musician plays a melody that makes everyone who hears it cry.",
   ];
 
   useEffect(() => {
     setCurrentChallenge(getRandomChallenge());
     fetchChallenges();
+    fetchUsers();
   }, []);
 
   const getRandomChallenge = () =>
@@ -55,12 +54,23 @@ const WritingChallenge = () => {
     }
   };
 
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/users");
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data);
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!userName.trim() || !genre.trim() || !story.trim()) return;
 
     if (editId) {
-      // Updating an existing story
       try {
         const response = await fetch(`http://localhost:5000/challenges/${editId}`, {
           method: "PUT",
@@ -79,7 +89,6 @@ const WritingChallenge = () => {
         console.error("Error updating story:", error);
       }
     } else {
-      // Submitting a new story
       try {
         const response = await fetch("http://localhost:5000/challenges", {
           method: "POST",
@@ -120,9 +129,12 @@ const WritingChallenge = () => {
     }
   };
 
-  const filteredChallenges = selectedGenre
-    ? challenges.filter((c) => c.genre === selectedGenre)
-    : challenges;
+  const filteredChallenges = challenges.filter((c) => {
+    return (
+      (!selectedGenre || c.genre === selectedGenre) &&
+      (!selectedUser || c.userName === selectedUser)
+    );
+  });
 
   return (
     <div style={styles.container}>
@@ -168,7 +180,18 @@ const WritingChallenge = () => {
         </button>
       </form>
 
-      {/* Genre Filter Dropdown */}
+      <div style={styles.sortContainer}>
+        <label style={styles.sortLabel}>Filter by User:</label>
+        <select value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)} style={styles.sortDropdown}>
+          <option value="">All Users</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.name}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div style={styles.sortContainer}>
         <label style={styles.sortLabel}>Sort by Genre:</label>
         <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)} style={styles.sortDropdown}>
@@ -184,7 +207,7 @@ const WritingChallenge = () => {
       <div style={styles.challengesContainer}>
         <h3 style={styles.submittedTitle}>📜 Submitted Stories</h3>
         {filteredChallenges.length === 0 ? (
-          <p style={styles.noChallenges}>No stories available for this genre.</p>
+          <p style={styles.noChallenges}>No stories available.</p>
         ) : (
           filteredChallenges.map((c) => (
             <div key={c._id} style={styles.challengeCard}>
@@ -192,12 +215,8 @@ const WritingChallenge = () => {
                 <strong>{c.userName}</strong> - <em>{c.genre}</em>
               </p>
               <p>"{c.story}"</p>
-              <button onClick={() => handleEdit(c)} style={styles.editButton}>
-                Edit
-              </button>
-              <button onClick={() => handleDelete(c._id)} style={styles.deleteButton}>
-                Delete
-              </button>
+              <button onClick={() => handleEdit(c)} style={styles.editButton}>Edit</button>
+              <button onClick={() => handleDelete(c._id)} style={styles.deleteButton}>Delete</button>
             </div>
           ))
         )}
@@ -206,7 +225,6 @@ const WritingChallenge = () => {
   );
 };
 
-// 🔹 Define the styles object
 const styles = {
   container: { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", width: "100vw", color: "#000", background: "#eef2f3", padding: "40px" },
   title: { fontSize: "2.5rem", fontFamily: "Merriweather, serif", color: "#2c3e50" },

@@ -103,4 +103,25 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+router.get('/users', async (req, res) => {
+    try {
+      const users = await User.find({}, 'name _id');
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
+  // Fetch story prompts by selected user
+  router.get('/prompts/:userId', async (req, res) => {
+    try {
+      const prompts = await StoryPrompt.find({ created_by: req.params.userId });
+      res.json(prompts);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+
 module.exports = router;
+

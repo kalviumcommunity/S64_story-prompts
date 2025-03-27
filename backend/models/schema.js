@@ -34,3 +34,13 @@ const userSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("User", userSchema);
+
+
+const StoryPromptSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  genre: String,
+  created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+});
+
+module.exports = mongoose.model('StoryPrompt', StoryPromptSchema);
