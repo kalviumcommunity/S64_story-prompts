@@ -1,12 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const mysql = require("mysql2");
 const cors = require("cors");
-const itemRoutes = require("./routes/itemRoutes");
-const Schema = require("./models/schema");
+const cookieParser = require("cookie-parser");
 
 // Import Routes
 const writingChallengeRoutes = require("./routes/itemRoutes");
+const promptRoutes = require("./routes/prompts");
+const challengesRoutes = require("./routes/challenges");
+const usersRoutes = require("./routes/users");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,28 +20,41 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-// MongoDB Connection
+/* 🔹 1️⃣ Connect to MySQL */
+const mysqlDB = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+
+mysqlDB.connect((err) => {
+  if (err) {
+    console.error("❌ MySQL Connection Failed:", err);
+    return;
+  }
+  console.log("✅ Connected to MySQL Database");
+});
+
+/* 🔹 2️⃣ Connect to MongoDB */
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch((err) => console.log("❌ MongoDB connection error:", err));
 
-// Routes
+/* 🔹 3️⃣ Routes */
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the Writing Challenges API!" });
+  res.json({ message: "Welcome to the Story Prompts API!" });
 });
-// router.get('/users', async (req, res) => {
-//   try {
-//       const users = await User.find(); // Fetch users from MongoDB
-//       res.status(200).json(users);
-//   } catch (error) {
-//       console.error("Error fetching users:", error);
-//       res.status(500).json({ message: "Error fetching users", error });
-//   }
-// });
 
-// Writing Challenges Routes
-app.use("/challenges", writingChallengeRoutes);
+// MySQL-based Routes
+app.use("/api/prompts", writingChallengeRoutes);
+
+// MongoDB-based Routes
+app.use("/api/users", promptRoutes);
+app.use("/challenges", challengesRoutes);
+app.use("/users", usersRoutes);
+
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
