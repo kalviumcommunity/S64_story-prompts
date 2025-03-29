@@ -214,7 +214,7 @@ const WritingChallenge = () => {
               <p>
                 <strong>{c.userName}</strong> - <em>{c.genre}</em>
               </p>
-              <p>"{c.story}"</p>
+              <p>{c.story}</p>
               <button onClick={() => handleEdit(c)} style={styles.editButton}>Edit</button>
               <button onClick={() => handleDelete(c._id)} style={styles.deleteButton}>Delete</button>
             </div>
